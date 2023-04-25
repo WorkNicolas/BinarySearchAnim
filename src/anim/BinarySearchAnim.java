@@ -1,10 +1,10 @@
 package anim;
-import arch.Menu;
-import arch.BinarySearch;
+import arch.View;
+import arch.ArrayGen;
 
 public class BinarySearchAnim {
     public void startMenu() {
-        Menu menu = new Menu();
+        View menu = new View();
         menu.genericMenu();
     }
 }

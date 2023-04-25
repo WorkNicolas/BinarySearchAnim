@@ -2,7 +2,7 @@ package arch;
 import java.util.Random;
 import java.util.Arrays;
 
-public class BinarySearch {
+public class ArrayGen {
     private int[] arr;
 
     private int[] generateArray(int size) {

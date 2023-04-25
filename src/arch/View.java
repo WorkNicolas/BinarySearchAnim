@@ -10,7 +10,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-public class Menu {
+public class View {
     public void genericMenu() {
         JFrame frame = new JFrame();
         JPanel upanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //upper panel
