@@ -67,7 +67,7 @@ public class View {
 
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.pack(); //frame size is based on panel size
         frame.setVisible(true);
 
         //Listener
