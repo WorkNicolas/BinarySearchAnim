@@ -1,4 +1,4 @@
-package arch.models;
+package methods;
 public class BinarySearch
 {
     int[] arr;

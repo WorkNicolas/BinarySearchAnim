@@ -5,13 +5,12 @@
     <li>java Graphics</li>
 </ul>
 
-## anim
-Contains the source code for animation
-
-## arch
-MVC architecture for BinarySearch
-
-### models
+## mvc
+<ul>
+    <li>MVC Architecture</li>
+    <li>Animation acquired from BinarySearchAnim</li>
+</ul>
+## methods
 <ul>
     <li>Method for generating array</li>
     <li>Method for Binary Search</li>

@@ -1,4 +1,4 @@
-package arch;
+package mvc;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -7,25 +7,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import arch.models.ArrayGen;
+import methods.ArrayGen;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class View {
+    private Model model = new Model();
     private JFrame frame = new JFrame();
     private JPanel upanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //upper panel
     private JPanel lpanel = new JPanel(); //lower panel
     private JButton btn = new JButton("Array Size");
     private JTextField tf = new JTextField();
-    JLabel lb = new JLabel();
+    private JLabel lb = new JLabel();
 
-    public void genericMenu() {
-        
+    public View(Model model) {
+        this.model = model;
 
         //grid
         frame.setLayout(new GridBagLayout());
@@ -66,20 +69,23 @@ public class View {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-    }
 
-    public int[] getArray() {
-        int[] arr = null;
-        try {
-            arr = new ArrayGen().generateArray(Integer.valueOf(tf.getText()));
-        } catch (NumberFormatException ex) {
-            System.out.println(ex);
-            JOptionPane.showMessageDialog(null, "Invalid input", "Warning", JOptionPane.ERROR_MESSAGE);
-        }
-        return arr;
+        //Listener
+        btn.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+            try {
+                model.setArr(new ArrayGen().generateArray(Integer.valueOf(tf.getText())));
+                updateView();
+            } catch(NumberFormatException ex) {
+                System.out.println(ex);
+                JOptionPane.showMessageDialog(null, "Invalid input", "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+           } 
+        });
     }
-
-    void addBtnListener(ActionListener listenBtn) {
-        btn.addActionListener(listenBtn);
+    
+    public void updateView() {
+        lb.setText("Array: " + Arrays.toString(model.getArr()));
     }
 }

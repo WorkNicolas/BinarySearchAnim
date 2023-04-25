@@ -1,8 +1,12 @@
-import anim.BinarySearchAnim;
+import mvc.Model;
+import mvc.View;
+import mvc.Controller;
 
 public class Main {
     public static void main (String[] args) {
-        BinarySearchAnim bsa = new BinarySearchAnim();
-        bsa.startMenu();
+        Model model = new Model();
+        View view = new View(model);
+        Controller ctrl = new Controller(model, view);
+
     }
 }
