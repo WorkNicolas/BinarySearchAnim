@@ -2,6 +2,7 @@ package arch;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -12,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 
 public class View {
     private JFrame frame = new JFrame();
@@ -64,7 +66,17 @@ public class View {
     }
 
     public int[] getArray() {
-        ArrayGen arrayGen = new ArrayGen();
-        return arrayGen.generateArray(Integer.valueOf(tf.getText()));
+        int[] arr = null;
+        try {
+            arr = new ArrayGen().generateArray(Integer.valueOf(tf.getText()));
+        } catch (NumberFormatException ex) {
+            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Invalid input", "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+        return arr;
+    }
+
+    void addBtnListener(ActionListener listenBtn) {
+        btn.addActionListener(listenBtn);
     }
 }
