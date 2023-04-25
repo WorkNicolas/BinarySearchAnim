@@ -2,6 +2,7 @@ package arch;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,6 +22,7 @@ public class View {
     private JPanel lpanel = new JPanel(); //lower panel
     private JButton btn = new JButton("Array Size");
     private JTextField tf = new JTextField();
+    JLabel lb = new JLabel();
 
     public void genericMenu() {
         
@@ -47,6 +49,7 @@ public class View {
         //panel settings
         upanel.add(btn);
         upanel.add(tf);
+        lpanel.add(lb);
 
         //frame settings
         GridBagConstraints gbc = new GridBagConstraints();
