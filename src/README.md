@@ -4,3 +4,9 @@
     <li>java Swing</li>
     <li>java Graphics</li>
 </ul>
+
+## anim
+Contains the source code for animation
+
+## arch
+MVC architecture for BinarySearch
