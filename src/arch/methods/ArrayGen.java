@@ -1,4 +1,4 @@
-package arch;
+package arch.methods;
 import java.util.Random;
 import java.util.Arrays;
 

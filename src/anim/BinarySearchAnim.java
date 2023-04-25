@@ -1,6 +1,6 @@
 package anim;
 import arch.View;
-import arch.ArrayGen;
+import arch.methods.ArrayGen;
 
 public class BinarySearchAnim {
     public void startMenu() {

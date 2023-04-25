@@ -11,12 +11,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 public class View {
+    private JFrame frame = new JFrame();
+    private JPanel upanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //upper panel
+    private JPanel lpanel = new JPanel(); //lower panel
+    private JButton btn = new JButton("Array Size");
+    private JTextField tf = new JTextField();
+
     public void genericMenu() {
-        JFrame frame = new JFrame();
-        JPanel upanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //upper panel
-        JPanel lpanel = new JPanel(); //lower panel
-        JButton btn = new JButton("Array Size");
-        JTextField tf = new JTextField();
+        
 
         //grid
         frame.setLayout(new GridBagLayout());
@@ -56,5 +58,10 @@ public class View {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    public int[] getArray() {
+
+        return null;
     }
 }
