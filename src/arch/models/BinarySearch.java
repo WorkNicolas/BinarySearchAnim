@@ -1,8 +1,4 @@
-package arch.methods;
-
-import java.lang.Math;
-import java.util.Scanner;
-
+package arch.models;
 public class BinarySearch
 {
     int[] arr;
@@ -12,7 +8,7 @@ public class BinarySearch
         {
             System.out.print(target + " not found.");
         }
-        int middle = (int) Math.floor((start + end) / 2);
+        int middle = (int) (start + end) / 2;
 
         if (arr[middle] == target) {
             System.out.println(target + " found at index " + middle);

@@ -4,6 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import arch.models.ArrayGen;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -61,7 +64,7 @@ public class View {
     }
 
     public int[] getArray() {
-
-        return null;
+        ArrayGen arrayGen = new ArrayGen();
+        return arrayGen.generateArray(Integer.valueOf(tf.getText()));
     }
 }

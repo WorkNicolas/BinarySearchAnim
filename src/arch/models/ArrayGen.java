@@ -1,11 +1,11 @@
-package arch.methods;
+package arch.models;
 import java.util.Random;
 import java.util.Arrays;
 
 public class ArrayGen {
-    private int[] arr;
+    int[] arr;
 
-    private int[] generateArray(int size) {
+    public int[] generateArray(int size) {
         Random r = new Random();
         int[] arr = new int[size];
         for (int i = 0; i < arr.length; i++) {
