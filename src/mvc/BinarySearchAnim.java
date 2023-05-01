@@ -10,6 +10,7 @@ public class BinarySearchAnim {
     private Model model;
     private View view;
     private Controller ctrl;
+    
     /**
      * MVC arguments are used to ensure bidirectional data
      * 

@@ -53,9 +53,9 @@ public class View {
                 BorderFactory.createLineBorder(Color.BLACK)));
 
         //panel size
-        int panelWidth = 800, panelHeight = 600;
-        upanel.setPreferredSize(new Dimension(panelWidth, panelHeight - 530));
-        lpanel.setPreferredSize(new Dimension(panelWidth, panelHeight - 70));
+        final int PANEL_WIDTH = 800, PANEL_HEIGHT = 600;
+        upanel.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT - 530));
+        lpanel.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT - 70));
 
         //textfield width
         tf.setColumns(4);
