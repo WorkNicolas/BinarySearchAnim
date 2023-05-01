@@ -20,8 +20,26 @@ public class Controller {
         this.view = view;
         view.updateView();
     }
+
     public void updateView() {
         view.updateView();
+        model = view.getModel();
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public void setView(View view) {
+        this.view = view;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public View getView() {
+        return view;
     }
     
 }

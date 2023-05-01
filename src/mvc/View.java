@@ -102,4 +102,14 @@ public class View {
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
     }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    
 }
