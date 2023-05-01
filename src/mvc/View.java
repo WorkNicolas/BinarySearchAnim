@@ -1,3 +1,9 @@
+/**
+ * MVC View architecture that handles what the user sees
+ * 
+ * @author WorkNicolas
+ * @version 2023-04-26
+ */
 package mvc;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -27,6 +33,11 @@ public class View {
     private JTextField tf = new JTextField();
     private JLabel lb = new JLabel();
 
+    /**
+     * Generates the menu
+     * 
+     * @param model
+     */
     public View(Model model) {
         this.model = model;
 
@@ -85,6 +96,9 @@ public class View {
         });
     }
     
+    /**
+     * Updates JLabel lb
+     */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
     }
