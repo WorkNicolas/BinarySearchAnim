@@ -2,25 +2,36 @@ package mvc;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 public class Animation extends javax.swing.JPanel {
-    public Animation() {
-        
+    private Model model;
+    public Animation(Model model) {
+        this.model = model;
     }
 
     public void paint(Graphics g) {
-        paintElements(g, 20, 100);
+        if (!(model.getArr() == null)) {
+            for (int i = 0; i < model.getArr().length; i++) {
+                paintElements(g, i, model.getArr()[i]);
+            }
+        } else { //for testing, remove later
+            int[] arr = new int[10];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = i * 2;
+                paintElements(g, i, arr[i]);
+            }
+        }
     }
 
-    public void paintElements(Graphics g, int index, int element) {
+    private void paintElements(Graphics g, int index, int element) {
         // Outer Rectangle Properties
         int side = 75;
         int border = 10;
-        int outerX = index + 5;
-        int outerY = index + 150;
+        index *= 100;
+        int outerX = index + 20;
+        int outerY = 150;
 
         // Inner Rectangle Properties
         int innerSide = side - 2 * border;

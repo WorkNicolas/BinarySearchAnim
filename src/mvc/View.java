@@ -28,7 +28,7 @@ public class View {
     private Model model = new Model();
     private JFrame frame = new JFrame();
     private JPanel upanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //upper panel
-    private JPanel lpanel = new Animation(); //lower panel
+    private JPanel lpanel = new Animation(model); //lower panel
     private JButton btn = new JButton("Array Size");
     private JTextField tf = new JTextField();
     private JLabel lb = new JLabel();
@@ -100,6 +100,7 @@ public class View {
      */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
+        lpanel.repaint();
     }
 
     public void setModel(Model model) {
