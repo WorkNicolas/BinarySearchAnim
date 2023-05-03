@@ -10,6 +10,7 @@
     <li>MVC Architecture</li>
     <li>Animation</li>
 </ul>
+
 ## methods
 <ul>
     <li>Method for generating array</li>

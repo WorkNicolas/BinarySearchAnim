@@ -1,8 +1,9 @@
 package mvc;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.lang.Thread;
+
 
 public class Animation extends javax.swing.JPanel {
     private Model model;
@@ -23,6 +24,9 @@ public class Animation extends javax.swing.JPanel {
         if (!(model.getArr() == null)) {
             for (int i = 0; i < model.getArr().length; i++) {
                 paintElements(g, i, model.getArr()[i]);
+                
+            }
+            for (int i = 0; i < model.getCounter(); i++) {
                 paintIndex(g, i);
             }
         }

@@ -24,13 +24,14 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class View {
     private Model model = new Model();
     private JFrame frame = new JFrame();
     private JPanel upanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //upper panel
     private Animation lpanel = new Animation(model); //lower panel
-    //private JScrollPane spane = new JScrollPane(lpanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     private JButton btn = new JButton("Array Size");
     private JTextField tf = new JTextField();
     private JLabel lb = new JLabel();
@@ -49,9 +50,6 @@ public class View {
         upanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(10, 10, 10, 10),
                 BorderFactory.createLineBorder(Color.BLACK)));
-        //lpanel.setBorder(BorderFactory.createCompoundBorder(
-                //BorderFactory.createEmptyBorder(10, 10, 10, 10),
-                //BorderFactory.createLineBorder(Color.BLACK)));
 
         //panel size
         final int PANEL_WIDTH = 800, PANEL_HEIGHT = 600;
@@ -102,9 +100,25 @@ public class View {
      */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
-        lpanel.setModel(model);
-        frame.revalidate();
-        frame.repaint();
+        if (!(model.getArr() == null)) {
+            btn.setEnabled(false);
+        }
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            int counter = 0;
+            public void run() {
+                model.setCounter(counter);
+                ++counter;
+                lpanel.setModel(model);
+                frame.revalidate();
+                frame.repaint();
+                if (counter == model.getArr().length + 1) {
+                    timer.cancel();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 200);
+        btn.setEnabled(true);
     }
     /**
      * For Controller architecture
