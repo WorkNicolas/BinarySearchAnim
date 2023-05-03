@@ -23,6 +23,7 @@ public class Animation extends javax.swing.JPanel {
         if (!(model.getArr() == null)) {
             for (int i = 0; i < model.getArr().length; i++) {
                 paintElements(g, i, model.getArr()[i]);
+                paintIndex(g, i);
             }
         }
     }
@@ -74,11 +75,11 @@ public class Animation extends javax.swing.JPanel {
     }
     private void paintIndex(Graphics g, int index) {
         // Outer Rectangle Properties
-        int side = 75;
+        int side = 50;
         int border = 10;
         int spacing = index * 100;
-        int outerX = spacing + 20;
-        int outerY = 150;
+        int outerX = spacing + 30;
+        int outerY = 90;
 
         // Inner Rectangle Properties
         int innerSide = side - 2 * border;
@@ -86,11 +87,11 @@ public class Animation extends javax.swing.JPanel {
         int innerY = outerY + 10;
 
         // String Properties
-        int fontSize = 30;
+        int fontSize = 15;
         
 
         // Outer Rectangle
-        g.setColor(Color.GREEN);
+        g.setColor(Color.RED);
         g.fillRect(outerX, outerY, side, side);
         g.setColor(Color.BLACK);
         g.drawRect(outerX, outerY, side, side);
@@ -104,11 +105,11 @@ public class Animation extends javax.swing.JPanel {
         // String
         g.setFont(new Font("Arial", Font.BOLD, fontSize));
         if (index >= 0 && index < 10) {
-            g.drawString("" + index, innerX + innerSide/2 - 7, innerY + innerSide/2 + 12);
+            g.drawString("" + index, innerX + innerSide/2 - 3, innerY + innerSide/2 + 7);
         } else if (index >= 10 && index < 100) {
-            g.drawString("" + index, innerX + innerSide/2 - 15, innerY + innerSide/2 + 12);
+            g.drawString("" + index, innerX + innerSide/2 - 8, innerY + innerSide/2 + 7);
         } else if (index >= 100 && index < 1000) {
-            g.drawString("" + index, innerX + innerSide/2 - 25, innerY + innerSide/2 + 12);
+            g.drawString("" + index, innerX + innerSide/2 - 21, innerY + innerSide/2 + 7);
         }
     }
     /**
