@@ -100,13 +100,14 @@ public class View {
      */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
-        if (!(model.getArr() == null)) {
-            btn.setEnabled(false);
-        }
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             int counter = 0;
             public void run() {
+                btn.setEnabled(false);
+                if (model.getArr() == null) {
+                    btn.setEnabled(true);
+                }
                 model.setCounter(counter);
                 ++counter;
                 lpanel.setModel(model);
@@ -114,11 +115,11 @@ public class View {
                 frame.repaint();
                 if (counter == model.getArr().length + 1) {
                     timer.cancel();
+                    btn.setEnabled(true);
                 }
             }
         };
         timer.scheduleAtFixedRate(task, 0, 200);
-        btn.setEnabled(true);
     }
     /**
      * For Controller architecture
