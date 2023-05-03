@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import methods.ArrayGen;
@@ -28,7 +29,8 @@ public class View {
     private Model model = new Model();
     private JFrame frame = new JFrame();
     private JPanel upanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //upper panel
-    private JPanel lpanel = new Animation(model); //lower panel
+    private Animation lpanel = new Animation(model); //lower panel
+    //private JScrollPane spane = new JScrollPane(lpanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     private JButton btn = new JButton("Array Size");
     private JTextField tf = new JTextField();
     private JLabel lb = new JLabel();
@@ -47,9 +49,9 @@ public class View {
         upanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(10, 10, 10, 10),
                 BorderFactory.createLineBorder(Color.BLACK)));
-        lpanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(10, 10, 10, 10),
-                BorderFactory.createLineBorder(Color.BLACK)));
+        //lpanel.setBorder(BorderFactory.createCompoundBorder(
+                //BorderFactory.createEmptyBorder(10, 10, 10, 10),
+                //BorderFactory.createLineBorder(Color.BLACK)));
 
         //panel size
         final int PANEL_WIDTH = 800, PANEL_HEIGHT = 600;
@@ -75,7 +77,7 @@ public class View {
         gbc.weighty = 0.8;
         frame.add(lpanel, gbc);
 
-        frame.setResizable(false);
+        //frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack(); //frame size is based on panel size
         frame.setVisible(true);
@@ -100,6 +102,8 @@ public class View {
      */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
+        lpanel.setModel(model);
+        lpanel = new Animation(model);
         lpanel.repaint();
     }
 

@@ -1,23 +1,25 @@
 package mvc;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
 
 public class Animation extends javax.swing.JPanel {
     private Model model;
+    final int PANEL_WIDTH = 800, PANEL_HEIGHT = 600;
     public Animation(Model model) {
         this.model = model;
+        
     }
 
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         if (!(model.getArr() == null)) {
             for (int i = 0; i < model.getArr().length; i++) {
                 paintElements(g, i, model.getArr()[i]);
             }
         } else { //for testing, remove later
-            int[] arr = new int[10];
+            int[] arr = new int[20];
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = i * 2;
                 paintElements(g, i, arr[i]);
@@ -63,5 +65,11 @@ public class Animation extends javax.swing.JPanel {
         } else if (element >= 100 && element < 1000) {
             g.drawString("" + element, innerX + innerSide/2 - 25, innerY + innerSide/2 + 12);
         }
+    }
+    public void setModel (Model model) {
+        this.model = model;
+    }
+    public Model getModel() {
+        return model;
     }
 }
