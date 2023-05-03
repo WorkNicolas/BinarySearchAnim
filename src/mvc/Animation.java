@@ -89,7 +89,6 @@ public class Animation extends javax.swing.JPanel {
         // String Properties
         int fontSize = 15;
         
-
         // Outer Rectangle
         g.setColor(Color.RED);
         g.fillRect(outerX, outerY, side, side);
