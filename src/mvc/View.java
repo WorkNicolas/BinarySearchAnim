@@ -98,7 +98,7 @@ public class View {
     }
     
     /**
-     * Updates JLabel lb
+     * Updates JLabel lb and Animation class
      */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
@@ -106,14 +106,20 @@ public class View {
         frame.revalidate();
         frame.repaint();
     }
-
+    /**
+     * For Controller architecture
+     * 
+     * @param model
+     */
     public void setModel(Model model) {
         this.model = model;
     }
-
+    /**
+     * For Controller architecture
+     * 
+     * @return
+     */
     public Model getModel() {
         return model;
     }
-
-    
 }
