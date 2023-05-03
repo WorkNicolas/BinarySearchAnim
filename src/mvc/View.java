@@ -89,7 +89,10 @@ public class View {
                 updateView();
             } catch(NumberFormatException ex) {
                 System.out.println(ex);
-                JOptionPane.showMessageDialog(null, "Invalid input", "Warning", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, ex, "Invalid Number Format", JOptionPane.ERROR_MESSAGE);
+            } catch(NegativeArraySizeException ex) {
+                System.out.println(ex);
+                JOptionPane.showMessageDialog(null, ex, "Negative Array Size", JOptionPane.ERROR_MESSAGE);
             }
            } 
         });
@@ -113,7 +116,30 @@ public class View {
                 lpanel.setModel(model);
                 frame.revalidate();
                 frame.repaint();
-                if (counter == model.getArr().length + 1) {
+                if (counter >= model.getArr().length + 1) {
+                    timer.cancel();
+                    btn.setEnabled(true);
+                    updateView2();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 200);
+    }
+    public void updateView2() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            int counter = model.getArr().length;
+            public void run() {
+                btn.setEnabled(false);
+                if (model.getArr() == null) {
+                    btn.setEnabled(true);
+                }
+                model.setCounter(counter);
+                --counter;
+                lpanel.setModel(model);
+                frame.revalidate();
+                frame.repaint();
+                if (counter <= -1) {
                     timer.cancel();
                     btn.setEnabled(true);
                 }
