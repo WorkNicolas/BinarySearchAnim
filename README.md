@@ -8,7 +8,7 @@
 ## mvc
 <ul>
     <li>MVC Architecture</li>
-    <li>Animation acquired from BinarySearchAnim</li>
+    <li>Animation</li>
 </ul>
 ## methods
 <ul>
