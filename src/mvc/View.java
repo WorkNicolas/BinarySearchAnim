@@ -103,7 +103,6 @@ public class View {
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
         lpanel.setModel(model);
-        lpanel = new Animation(model);
         frame.revalidate();
         frame.repaint();
     }
