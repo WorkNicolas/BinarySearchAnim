@@ -14,7 +14,7 @@ public class Animation extends javax.swing.JPanel {
      */
     public Animation(Model model) {
         this.model = model;
-        //setLayout(new java.awt.GridBagLayout());
+        setLayout(new java.awt.BorderLayout());
     }
     /**
      * Paints array of boxes

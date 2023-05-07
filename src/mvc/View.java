@@ -16,11 +16,7 @@ import javax.swing.JTextField;
 import methods.ArrayGen;
 import methods.BinarySearch;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -35,6 +31,7 @@ public class View {
     private JFrame frame = new JFrame();
     private JPanel upanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); //upper panel
     private Animation lpanel = new Animation(model); //lower panel
+    private JPanel iPanel = new JPanel(new GridBagLayout());
     private JButton btn = new JButton("Array Size");
     private JTextField tf = new JTextField();
     private JLabel lb = new JLabel(); // array
@@ -70,18 +67,36 @@ public class View {
         //panel settings
         upanel.add(btn);
         upanel.add(tf);
-        lpanel.add(lb);
+        lpanel.add(iPanel, BorderLayout.SOUTH);
+        GridBagConstraints pgbc = new GridBagConstraints();
+        pgbc.gridx = 0;
+        pgbc.gridy = 0;
+        pgbc.insets = new Insets(20,60,20,60);
+        pgbc.anchor = GridBagConstraints.LAST_LINE_START;
+        iPanel.add(mv, pgbc);
+        pgbc.gridx = 1;
+        pgbc.gridy = 0;
+        iPanel.add(tv, pgbc);
+        pgbc.gridx = 0;
+        pgbc.gridy = 1;
+        iPanel.add(mi, pgbc);
+        pgbc.gridx = 1;
+        pgbc.gridy = 1;
+        iPanel.add(mc, pgbc);
+        pgbc.gridx = 0;
+        pgbc.gridy = 2;
+        iPanel.add(lb, pgbc);
 
         //frame settings
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weighty = 0.2;
-        frame.add(upanel, gbc);
+        GridBagConstraints fgbc = new GridBagConstraints();
+        fgbc.gridx = 0;
+        fgbc.gridy = 0;
+        fgbc.weighty = 0.2;
+        frame.add(upanel, fgbc);
 
-        gbc.gridy = 1;
-        gbc.weighty = 0.8;
-        frame.add(lpanel, gbc);
+        fgbc.gridy = 1;
+        fgbc.weighty = 0.8;
+        frame.add(lpanel, fgbc);
 
         //frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,7 +148,10 @@ public class View {
      */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
-        
+        mv.setText("Middle Value: ");
+        tv.setText("Target Value: ");
+        mi.setText("Middle Index: ");
+        mc.setText("Middle =" + "(start + end)/2");
         forwardIndex();
     }
     public void calculateBs() {
@@ -161,6 +179,11 @@ public class View {
         model.setEnd(model.getBs().getEnd());
         model.setMid(model.getBs().getMiddle());
     }
+
+    /**
+     * Index boxes appears from left-to-right
+     *
+     */
     public void forwardIndex() {
         if (model.getArr() != null) {
             Timer timer = new Timer();
@@ -208,6 +231,11 @@ public class View {
             timer.scheduleAtFixedRate(task, 0, 200);
         }
     }
+
+    /**
+     * Index disappears from right-to-left
+     *
+     */
     public void reverseIndex() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
