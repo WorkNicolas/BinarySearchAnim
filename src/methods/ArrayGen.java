@@ -17,4 +17,14 @@ public class ArrayGen {
         Arrays.sort(arr);
         return arr;
     }
+    /**
+     * Chooses a random target based on array length
+     * 
+     * @param length
+     * @return
+     */
+    public int selectRandom(int length) {
+        int target = new Random().nextInt(length);
+        return target;
+    }
 }

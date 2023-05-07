@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class View {
     private Model model = new Model();
@@ -35,6 +36,7 @@ public class View {
     private JButton btn = new JButton("Array Size");
     private JTextField tf = new JTextField();
     private JLabel lb = new JLabel();
+    
     /**
      * Generates the menu
      * 
@@ -85,7 +87,24 @@ public class View {
            @Override
            public void actionPerformed(ActionEvent e) {
             try {
-                model.setArr(new ArrayGen().generateArray(Integer.valueOf(tf.getText())));
+                // Create a random array based on textfield
+                model.setArr(
+                    new ArrayGen().generateArray(
+                        Integer.valueOf(
+                            tf.getText()
+                            )
+                    )
+                );
+                // Set target value based on array
+                // whose index is randomly chosen
+                // based on array's length
+                model.setTarget(
+                    model.getArr()
+                        [new ArrayGen().selectRandom(
+                            model.getArr().length
+                            )
+                        ]
+                    );
                 updateView();
             } catch(NumberFormatException ex) {
                 System.out.println(ex);
@@ -103,6 +122,10 @@ public class View {
      */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
+        
+        forwardIndex();
+    }
+    public void forwardIndex() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             int counter = 0;
@@ -119,13 +142,18 @@ public class View {
                 if (counter >= model.getArr().length + 1) {
                     timer.cancel();
                     btn.setEnabled(true);
-                    updateView2();
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    reverseIndex();
                 }
             }
         };
         timer.scheduleAtFixedRate(task, 0, 200);
     }
-    public void updateView2() {
+    public void reverseIndex() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             int counter = model.getArr().length;
