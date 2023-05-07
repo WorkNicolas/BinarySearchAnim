@@ -148,10 +148,10 @@ public class View {
      */
     public void updateView() {
         lb.setText("Array: " + Arrays.toString(model.getArr()));
-        mv.setText("Middle Value: ");
-        tv.setText("Target Value: ");
-        mi.setText("Middle Index: ");
-        mc.setText("Middle =" + "(start + end)/2");
+        mv.setText("Middle Value: NaN");
+        tv.setText("Target Value: NaN");
+        mi.setText("Middle Index: NaN");
+        mc.setText("Middle = (start + end)/2");
         forwardIndex();
     }
     public void calculateBs() {
