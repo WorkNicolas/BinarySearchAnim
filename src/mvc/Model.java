@@ -1,12 +1,10 @@
 package mvc;
-import methods.ArrayGen;
-import methods.BinarySearch;
 
 public class Model {
     private int[] arr, start, end, mid;
     private int target;
     private int counter = 0;
-    private BinarySearch bs = new BinarySearch();
+    private methods.BinarySearch bs;
     public Model() {
 
     }
@@ -29,7 +27,7 @@ public class Model {
     public void setTarget(int target) {
         this.target = target;
     }
-    public void setBs(BinarySearch bs) {
+    public void setBs(methods.BinarySearch bs) {
         this.bs = bs;
     }
 
@@ -51,7 +49,7 @@ public class Model {
     public int getTarget() {
         return target;
     }
-    public BinarySearch getBs() {
+    public methods.BinarySearch getBs() {
         return bs;
     }
 }

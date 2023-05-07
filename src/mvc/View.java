@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import methods.ArrayGen;
@@ -28,6 +27,8 @@ import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class View {
     private Model model = new Model();
@@ -36,7 +37,11 @@ public class View {
     private Animation lpanel = new Animation(model); //lower panel
     private JButton btn = new JButton("Array Size");
     private JTextField tf = new JTextField();
-    private JLabel lb = new JLabel();
+    private JLabel lb = new JLabel(); // array
+    private JLabel mv = new JLabel(); // middle value
+    private JLabel tv = new JLabel(); // target value
+    private JLabel mi = new JLabel(); // middle index
+    private JLabel mc = new JLabel(); // middle calculation
     
     /**
      * Generates the menu
@@ -110,8 +115,7 @@ public class View {
                             )
                         ]
                     );
-                model.setBs(new BinarySearch(model));
-                
+                calculateBs();
                 updateView();
             } catch(NumberFormatException ex) {
                 System.out.println(ex);
@@ -119,7 +123,7 @@ public class View {
             } catch(NegativeArraySizeException ex) {
                 System.out.println(ex);
                 JOptionPane.showMessageDialog(null, ex, "Negative Array Size", JOptionPane.ERROR_MESSAGE);
-            }
+            } 
            } 
         });
     }
@@ -132,33 +136,74 @@ public class View {
         
         forwardIndex();
     }
+    public void calculateBs() {
+        // Set up a model's binary search
+        model.setBs(new BinarySearch(model.getArr()));
+        /**
+         * Find the target to get the array
+         * of middle values, start values,
+         * and end values
+         * 
+         */
+        model.getBs().findTarget(
+            model.getTarget(),
+            0,
+            model.getArr().length,
+            0
+            );
+
+        /**
+         * Get start, end and middle values
+         * from BinarySearch()
+         * 
+         */
+        model.setStart(model.getBs().getStart());
+        model.setEnd(model.getBs().getEnd());
+        model.setMid(model.getBs().getMiddle());
+    }
     public void forwardIndex() {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            int counter = 0;
-            public void run() {
-                btn.setEnabled(false);
-                if (model.getArr() == null) {
-                    btn.setEnabled(true);
-                }
-                model.setCounter(counter);
-                ++counter;
-                lpanel.setModel(model);
-                frame.revalidate();
-                frame.repaint();
-                if (counter >= model.getArr().length + 1) {
-                    timer.cancel();
-                    btn.setEnabled(true);
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if (model.getArr() != null) {
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                int counter = 0;
+                public void run() {
+                    btn.setEnabled(false);
+                    if (model.getArr() == null) {
+                        btn.setEnabled(true);
                     }
-                    reverseIndex();
+                    model.setCounter(counter);
+                    ++counter;
+                    lpanel.setModel(model);
+                    frame.revalidate();
+                    frame.repaint();
+                    /**
+                     * Gives NullPointerException in the terminal
+                     * This is why the condition is set to only run
+                     * when model.getArr() != null.
+                     *
+                     * When ignored with try/catch, an array of boxes
+                     * will appear and disappear.
+                     *
+                     * For some reason forwardIndex() runs w/o any
+                     * prompt, the error can be ignored but, I don't
+                     * like seeing errors so, I managed the problem
+                     * here.
+                     *
+                     */
+                    if (counter >= model.getArr().length + 1) {
+                        timer.cancel();
+                        btn.setEnabled(true);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            System.out.println(e);
+                        }
+                        reverseIndex();
+                    }
                 }
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 200);
+            };
+            timer.scheduleAtFixedRate(task, 0, 200);
+        }
     }
     public void reverseIndex() {
         Timer timer = new Timer();

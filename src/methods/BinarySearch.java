@@ -4,25 +4,29 @@ import mvc.Model;
 
 public class BinarySearch
 {
-    private int[] arr;
-    private int middle, nextStart, nextEnd;
-    private Model model;
+    private int[] arr, mid, nextStart, nextEnd;
+    public BinarySearch(int[] arr) {
+        this.arr = arr;
+        this.nextStart = new int[arr.length];
+        this.nextEnd = new int[arr.length];
+        this.mid = new int[arr.length];
+    }
 
-    public BinarySearch(Model model) {
-        this.model = model;
+    public void setArr(int[] arr) {
+        this.arr =arr;
     }
-    
-    public int getMiddle() {
-        return middle;
+
+    public int[] getArr() {
+        return arr;
     }
-    public int getStart() {
+    public int[] getMiddle() {
+        return mid;
+    }
+    public int[] getStart() {
         return nextStart;
     }
-    public int getEnd() {
+    public int[] getEnd() {
         return nextEnd;
-    }
-    public Model getModel() {
-        return model;
     }
     
     /**
@@ -34,26 +38,29 @@ public class BinarySearch
      * @param model to return the model and inherit start, end, and middle
      * @param itr number of iterations occured
      */
-    public void findTarget(int target, int start, int end, Model model, int itr)
+    public void findTarget(int target, int start, int end, int itr)
     {
         if (start > end)
         {
             System.out.print(target + " not found.");
         }
-        middle = (int) (start + end) / 2;
-
+        int middle = (int) (start + end) / 2;
         if (arr[middle] == target) {
             System.out.println(target + " found at index " + middle);
         }
 
         if (arr[middle] > target) {
-            nextStart = start;
-            nextEnd = middle - 1;
-            findTarget(target, start, middle-1, model, itr);
+            nextStart[itr] = start;
+            nextEnd[itr] = middle - 1;
+            itr++;
+            findTarget(target, start, middle-1, itr);
         }
 
         if (arr[middle] < target) {
-            findTarget(target, middle+1, end, model, itr);
+            nextStart[itr] = middle - 1;
+            nextEnd[itr] = end;
+            itr++;
+            findTarget(target, middle+1, end, itr);
         }
     }
 }
