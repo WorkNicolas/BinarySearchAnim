@@ -182,12 +182,15 @@ public class View {
                      * when model.getArr() != null.
                      *
                      * When ignored with try/catch, an array of boxes
-                     * will appear and disappear.
+                     * will appear and disappear. The catch block will
+                     * loop infinitely, but this will not affect the
+                     * menu.
                      *
                      * For some reason forwardIndex() runs w/o any
                      * prompt, the error can be ignored but, I don't
                      * like seeing errors so, I managed the problem
-                     * here.
+                     * here. Resolved to ensure that processing power
+                     * is not wasted.
                      *
                      */
                     if (counter >= model.getArr().length + 1) {
