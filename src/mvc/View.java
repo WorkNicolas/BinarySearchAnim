@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import methods.ArrayGen;
+import methods.BinarySearch;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -95,9 +96,13 @@ public class View {
                             )
                     )
                 );
-                // Set target value based on array
-                // whose index is randomly chosen
-                // based on array's length
+
+                /**
+                 * Set target value based on array element
+                 * whose index is randomly chosen based on
+                 * the length of the array
+                 * 
+                 */
                 model.setTarget(
                     model.getArr()
                         [new ArrayGen().selectRandom(
@@ -105,6 +110,8 @@ public class View {
                             )
                         ]
                     );
+                model.setBs(new BinarySearch(model));
+                
                 updateView();
             } catch(NumberFormatException ex) {
                 System.out.println(ex);
