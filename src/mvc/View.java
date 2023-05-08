@@ -121,13 +121,7 @@ public class View {
                  * the length of the array
                  *
                  */
-                model.setTarget(
-                    model.getArr()
-                        [new ArrayGen().selectRandom(
-                            model.getArr().length
-                            )
-                        ]
-                    );
+                model.setTarget(model.getArr()[new ArrayGen().selectRandom(model.getArr().length)]);
                 calculateBs();
                 updateView();
             } catch(NumberFormatException ex) {
@@ -156,7 +150,13 @@ public class View {
         model.setItr(iterator);
         System.out.println("Iterator: " + iterator);
         model.setIndexAnim(true);
-        forwardIndex(model.getMid()[iterator]);
+        /**
+         * NullPointerException
+         *
+         */
+        if (model.getMid() != null) {
+            forwardIndex(model.getMid()[iterator]);
+        }
         /**
          * View.java completed arrays
          *
@@ -238,7 +238,7 @@ public class View {
                      *
                      */
                     newText(count);
-                    if (counter >= count) {
+                    if (counter >= count + 1) {
                         delayTime(2);
                         timer.cancel();
                         model.setIndexAnim(false);
@@ -259,7 +259,7 @@ public class View {
             Timer timer = new Timer();
             System.out.println("Current Counter Index: " + model.getMid()[model.getItr()]);
             TimerTask task = new TimerTask() {
-                int counter = model.getMid()[model.getItr()];
+                int counter = model.getMid()[model.getItr()] + 1;
                 public void run() {
                     btn.setEnabled(false);
                     if (model.getArr() == null) {
@@ -270,7 +270,7 @@ public class View {
                     lpanel.setModel(model);
                     frame.revalidate();
                     frame.repaint();
-                    if (counter <= -1) {
+                    if (counter <= -2) {
                         delayTime(2);
                         timer.cancel();
                         if (model.getArr()[model.getItr()] == model.getTarget()) {
@@ -278,12 +278,17 @@ public class View {
                             JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
                         } else {
                             model.setIndexAnim(true);
-                            forwardIndex(model.getMid()[model.getItr() + 1]);
+                            try {
+                                forwardIndex(model.getMid()[model.getItr() + 1]);
+                            } catch (ArrayIndexOutOfBoundsException ex) {
+                                mc.setText("Middle = " + "(" + model.getArr().length + " - " + (model.getArr().length - 2) + ")/2");
+                                forwardIndex(model.getArr().length - 2);
+                            }
                         }
                     }
                 }
             };
-            timer.scheduleAtFixedRate(task, 0, 200);
+            timer.scheduleAtFixedRate(task, 200, 200);
         }
     }
 

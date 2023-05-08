@@ -1,0 +1,57 @@
+[33mce62846[m[33m ([m[1;36mHEAD -> [m[1;32mclean[m[33m, [m[1;31morigin/clean[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33mce62846[m[33m ([m[1;36mHEAD -> [m[1;32mclean[m[33m, [m[1;31morigin/clean[m[33m)[m HEAD@{1}: commit: First clean commit
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{2}: checkout: moving from main to clean
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{3}: reset: moving to HEAD
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{4}: reset: moving to HEAD
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{5}: reset: moving to HEAD
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{6}: reset: moving to HEAD
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{7}: checkout: moving from threads to main
+[33m8107acf[m[33m ([m[1;31morigin/threads[m[33m, [m[1;32mthreads[m[33m)[m HEAD@{8}: reset: moving to HEAD
+[33m8107acf[m[33m ([m[1;31morigin/threads[m[33m, [m[1;32mthreads[m[33m)[m HEAD@{9}: commit: first branch commit
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{10}: checkout: moving from main to threads
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{11}: reset: moving to HEAD
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{12}: reset: moving to HEAD
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{13}: reset: moving to HEAD
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{14}: reset: moving to HEAD
+[33mcfef488[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{15}: commit: Forgot to iterate through mid
+[33m726fd44[m HEAD@{16}: commit: Properly working JOptionPane to show that the target has been found
+[33m864861f[m HEAD@{17}: commit: 2023-05-08T1847 Nearly working animations
+[33md22beec[m HEAD@{18}: commit: Bugs: reverseIndex counter set to arr.length
+[33m81d892b[m HEAD@{19}: commit: Nearly working animations
+[33m2f283fb[m HEAD@{20}: commit: Animating until the index
+[33m67905e2[m HEAD@{21}: commit: Properly labeled labels
+[33m73d4953[m HEAD@{22}: commit: Changed position of labels in View.java
+[33m3375601[m HEAD@{23}: commit: Improved Javadocs comment in View.java
+[33m0b0d222[m HEAD@{24}: commit: Fixed NullPointerException in View.java and BinarySearch.java
+[33m390b51e[m HEAD@{25}: commit: Added relevant getters and setters
+[33md8caf49[m HEAD@{26}: commit: Setup BinarySearch logic
+[33m68e61af[m HEAD@{27}: commit: Reverse animation
+[33mfca98ed[m HEAD@{28}: commit: Set array size button disabled during animation
+[33m2bf44dd[m HEAD@{29}: commit: Added animation of index
+[33mb59f3e9[m HEAD@{30}: commit: Updated README.md
+[33mec64d7a[m HEAD@{31}: commit: Removed *.class files
+[33mdd0b001[m HEAD@{32}: commit: Added red index boxes
+[33m4dbec1b[m HEAD@{33}: commit: Refactored names
+[33m5c4fec0[m HEAD@{34}: commit: Added Javadocs documentation
+[33mce7ff2b[m HEAD@{35}: commit: Removed lpanel = new Animation(model) and just added lpanel.setModel(model)
+[33mf91196d[m HEAD@{36}: commit: Fixed revalidate and repaint
+[33mfef1a25[m HEAD@{37}: commit: Updated to paintComponent
+[33md6f0822[m HEAD@{38}: commit: Added abilty to paint green boxes
+[33meb1f921[m HEAD@{39}: commit: Working graphics
+[33m665781b[m HEAD@{40}: commit: Create inner class DrawPanel in BinarySearchAnim.java
+[33m0819892[m HEAD@{41}: commit: Final panel sizes
+[33m02bf772[m HEAD@{42}: commit: Added MVC arch to BinarySearchAnim
+[33m5f0a60c[m HEAD@{43}: commit: Added .updateView to Controller
+[33m02ce5da[m HEAD@{44}: commit: 2023-05-01
+[33mdbf2d31[m HEAD@{45}: commit: Added comments to View.java
+[33mbd091f8[m HEAD@{46}: commit: Revised entire code, refactored MVC architecture, refactored methods
+[33m6c611d8[m HEAD@{47}: commit: Updated Controller.java to have listeners
+[33m3b16dce[m HEAD@{48}: commit: Updated arch
+[33m9b91cce[m HEAD@{49}: commit: Updated View
+[33meabda5f[m HEAD@{50}: commit: Added BinarySearch.java
+[33mb334355[m HEAD@{51}: commit: Renamed files to proper naming conventions
+[33m43e39c5[m HEAD@{52}: commit: Updated README.md, removed README.md from src/
+[33m1291dfc[m HEAD@{53}: commit: Updated README.md
+[33mf0513eb[m HEAD@{54}: commit: Updated README.md
+[33mec14713[m HEAD@{55}: commit: Changed README.md location from src/ to BinarySearchAnim/
+[33m61827a9[m HEAD@{56}: commit: Added README.md
