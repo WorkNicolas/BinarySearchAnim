@@ -237,7 +237,7 @@ public class View {
                     newText(count);
 
                     if (counter >= count + 1) {
-                        delayTime(2);
+                        delayTime(1);
                         executor.shutdown();
                         System.out.println("Iterator: " + model.getItr());
                         reverseIndex(model.getMid()[model.getItr()]);
@@ -276,7 +276,7 @@ public class View {
                 frame.repaint();
 
                 if (counter <= -2) {
-                    delayTime(2);
+                    delayTime(1);
                     System.out.println("Run: " + count);
                     model.setIndexAnim(model.getIndexAnim() + 1);
                     executor.shutdown();
