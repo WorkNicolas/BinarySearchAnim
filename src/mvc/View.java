@@ -261,6 +261,7 @@ public class View {
                     try {
                         if (model.getMid()[count] == model.getTarget()) {
                             btn.setEnabled(true);
+                            JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
                         } else {
                             forwardIndex(count + 1);
                         }
