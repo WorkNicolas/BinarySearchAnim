@@ -150,10 +150,17 @@ public class View {
         tv.setText("Target Value: NaN");
         mi.setText("Middle Index: NaN");
         mc.setText("Middle = (start + end)/2");
+
+        // Animation
         int iterator = 0;
         model.setItr(iterator);
         System.out.println("Iterator: " + iterator);
+        model.setIndexAnim(true);
         forwardIndex(model.getMid()[iterator]);
+        /**
+         * View.java completed arrays
+         *
+         */
         System.out.println("View.java");
         System.out.println("Iterator: " + iterator);
         System.out.println("Start: " + Arrays.toString(model.getStart()));
@@ -198,7 +205,7 @@ public class View {
      *
      */
     public void forwardIndex(int count) {
-        if (model.getArr() != null) {
+        if (model.getArr() != null && model.getIndexAnim()) {
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
                 int counter = 0;
@@ -231,9 +238,10 @@ public class View {
                      *
                      */
                     newText(count);
-                    if (counter >= count + 2) {
+                    if (counter >= count) {
                         delayTime(2);
                         timer.cancel();
+                        model.setIndexAnim(false);
                         reverseIndex(model.getMid()[model.getItr()]);
                     }
                 }
@@ -247,33 +255,36 @@ public class View {
      *
      */
     public void reverseIndex(int count) {
-        Timer timer = new Timer();
-        System.out.println("Current Counter Index: " + model.getMid()[model.getItr()]);
-        TimerTask task = new TimerTask() {
-            int counter = model.getMid()[model.getItr()];
-            public void run() {
-                btn.setEnabled(false);
-                if (model.getArr() == null) {
-                    btn.setEnabled(true);
-                }
-                model.setCounter(counter);
-                --counter;
-                lpanel.setModel(model);
-                frame.revalidate();
-                frame.repaint();
-                if (counter <= -1) {
-                    delayTime(2);
-                    timer.cancel();
-                    if (model.getArr()[model.getItr()] == model.getTarget()) {
+        if (!model.getIndexAnim()) {
+            Timer timer = new Timer();
+            System.out.println("Current Counter Index: " + model.getMid()[model.getItr()]);
+            TimerTask task = new TimerTask() {
+                int counter = model.getMid()[model.getItr()];
+                public void run() {
+                    btn.setEnabled(false);
+                    if (model.getArr() == null) {
                         btn.setEnabled(true);
-                        JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
-                    } else {
-                        forwardIndex(model.getMid()[model.getItr() + 1]);
+                    }
+                    model.setCounter(counter);
+                    --counter;
+                    lpanel.setModel(model);
+                    frame.revalidate();
+                    frame.repaint();
+                    if (counter <= -1) {
+                        delayTime(2);
+                        timer.cancel();
+                        if (model.getArr()[model.getItr()] == model.getTarget()) {
+                            btn.setEnabled(true);
+                            JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
+                        } else {
+                            model.setIndexAnim(true);
+                            forwardIndex(model.getMid()[model.getItr() + 1]);
+                        }
                     }
                 }
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 200);
+            };
+            timer.scheduleAtFixedRate(task, 0, 200);
+        }
     }
 
     /**

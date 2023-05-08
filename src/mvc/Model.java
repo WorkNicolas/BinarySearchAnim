@@ -10,6 +10,7 @@ public class Model {
     private int runs;
     // iterate through int[] mid
     private int itr;
+    private boolean indexAnim;
     private methods.BinarySearch bs;
     public Model() {
 
@@ -42,6 +43,9 @@ public class Model {
     public void setItr(int itr) {
         this.itr = itr;
     }
+    public void setIndexAnim(boolean indexAnim) {
+        this.indexAnim = indexAnim;
+    }
 
     public int getCounter() {
         return counter;
@@ -69,5 +73,8 @@ public class Model {
     }
     public int getItr() {
         return itr;
+    }
+    public boolean getIndexAnim() {
+        return indexAnim;
     }
 }

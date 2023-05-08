@@ -27,7 +27,7 @@ public class Animation extends javax.swing.JPanel {
                 paintElements(g, i, model.getArr()[i]);
                 
             }
-            for (int i = 0; i < model.getCounter(); i++) {
+            for (int i = 0; i <= model.getCounter(); i++) {
                 paintIndex(g, i);
             }
         }
