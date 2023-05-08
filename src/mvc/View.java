@@ -152,10 +152,9 @@ public class View {
         tv.setText("Target Value: NaN");
         mi.setText("Middle Index: NaN");
         mc.setText("Middle = (start + end)/2");
-        for (int i = 0; i < model.getRuns() + 1; i++) {
-            forwardIndex(model.getMid()[i]);
-        }
-
+        int iterator = 0;
+        model.setItr(iterator);
+        forwardIndex(model.getMid()[iterator]);
     }
     public void newText(int count) {
         mv.setText("Middle Value: " + model.getArr()[count]);
@@ -205,6 +204,7 @@ public class View {
                     }
                     model.setCounter(counter);
                     ++counter;
+                    model.setItr(count);
                     lpanel.setModel(model);
                     frame.revalidate();
                     frame.repaint();
@@ -229,7 +229,7 @@ public class View {
                     if (counter >= count + 2) {
                         delayTime(5);
                         timer.cancel();
-                        reverseIndex(count);
+                        reverseIndex(count + 1);
                     }
                 }
             };
@@ -257,8 +257,16 @@ public class View {
                 frame.repaint();
                 if (counter <= -1) {
                     delayTime(5);
-                    btn.setEnabled(true);
                     timer.cancel();
+                    try {
+                        if (model.getMid()[count] == model.getTarget()) {
+                            btn.setEnabled(true);
+                        } else {
+                            forwardIndex(count + 1);
+                        }
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        btn.setEnabled(true);
+                    }
                 }
             }
         };

@@ -57,7 +57,11 @@ public class Animation extends javax.swing.JPanel {
         
 
         // Outer Rectangle
-        g.setColor(Color.GREEN);
+        if (model.getArr()[index] == model.getArr()[model.getItr()]) {
+            g.setColor(Color.RED);
+        } else {
+            g.setColor(Color.GREEN);
+        }
         g.fillRect(outerX, outerY, side, side);
         g.setColor(Color.BLACK);
         g.drawRect(outerX, outerY, side, side);
