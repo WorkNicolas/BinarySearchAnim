@@ -1,10 +1,14 @@
 package mvc;
 
 public class Model {
+    // run BinarySearch.java first then get an array of values
     private int[] arr, start, end, mid;
     private int target;
+    // iterate through Animation.java index
     private int counter;
+    // number of BinarySearch.java runs before finding target
     private int runs;
+    // iterate through int[] mid
     private int itr;
     private methods.BinarySearch bs;
     public Model() {

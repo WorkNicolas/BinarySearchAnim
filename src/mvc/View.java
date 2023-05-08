@@ -154,7 +154,14 @@ public class View {
         mc.setText("Middle = (start + end)/2");
         int iterator = 0;
         model.setItr(iterator);
+        System.out.println("Iterator: " + iterator);
         forwardIndex(model.getMid()[iterator]);
+        System.out.println("View.java");
+        System.out.println("Iterator: " + iterator);
+        System.out.println("Start: " + Arrays.toString(model.getStart()));
+        System.out.println("End: " + Arrays.toString(model.getEnd()));
+        System.out.println("Middle: " + Arrays.toString(model.getMid()));
+        System.out.println("Runs: " + model.getRuns());
     }
     public void newText(int count) {
         mv.setText("Middle Value: " + model.getArr()[count]);
@@ -229,7 +236,7 @@ public class View {
                     if (counter >= count + 2) {
                         delayTime(5);
                         timer.cancel();
-                        reverseIndex(count + 1);
+                        reverseIndex(model.getMid()[model.getItr()]);
                     }
                 }
             };
@@ -244,7 +251,7 @@ public class View {
     public void reverseIndex(int count) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
-            int counter = model.getArr().length;
+            int counter = model.getMid()[model.getItr()];
             public void run() {
                 btn.setEnabled(false);
                 if (model.getArr() == null) {
@@ -258,15 +265,11 @@ public class View {
                 if (counter <= -1) {
                     delayTime(5);
                     timer.cancel();
-                    try {
-                        if (model.getMid()[count] == model.getTarget()) {
-                            btn.setEnabled(true);
-                            JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
-                        } else {
-                            forwardIndex(count + 1);
-                        }
-                    } catch (ArrayIndexOutOfBoundsException ex) {
+                    if (model.getMid()[model.getItr()] == model.getTarget()) {
                         btn.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
+                    } else {
+                        forwardIndex(model.getMid()[model.getItr()]);
                     }
                 }
             }
