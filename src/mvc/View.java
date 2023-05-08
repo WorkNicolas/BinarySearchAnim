@@ -22,7 +22,10 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 
 public class View {
     private Model model = new Model();
@@ -206,8 +209,8 @@ public class View {
      */
     public void forwardIndex(int count) {
         if (model.getArr() != null && model.getIndexAnim()) {
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
+            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+            Runnable task = new Runnable() {
                 int counter = 0;
                 public void run() {
                     btn.setEnabled(false);
@@ -220,33 +223,16 @@ public class View {
                     lpanel.setModel(model);
                     frame.revalidate();
                     frame.repaint();
-                    /**
-                     * Gives NullPointerException in the terminal
-                     * This is why the condition is set to only run
-                     * when model.getArr() != null.
-                     *
-                     * When ignored with try/catch, an array of boxes
-                     * will appear and disappear. The catch block will
-                     * loop infinitely, but this will not affect the
-                     * menu.
-                     *
-                     * For some reason forwardIndex() runs w/o any
-                     * prompt, the error can be ignored but, I don't
-                     * like seeing errors so, I managed the problem
-                     * here. Resolved to ensure that processing power
-                     * is not wasted.
-                     *
-                     */
                     newText(count);
                     if (counter >= count + 1) {
                         delayTime(2);
-                        timer.cancel();
+                        executor.shutdown();
                         model.setIndexAnim(false);
                         reverseIndex(model.getMid()[model.getItr()]);
                     }
                 }
             };
-            timer.scheduleAtFixedRate(task, 0, 200);
+            executor.scheduleAtFixedRate(task, 0, 200, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -256,9 +242,9 @@ public class View {
      */
     public void reverseIndex(int count) {
         if (!model.getIndexAnim()) {
-            Timer timer = new Timer();
+            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
             System.out.println("Current Counter Index: " + model.getMid()[model.getItr()]);
-            TimerTask task = new TimerTask() {
+            Runnable task = new Runnable() {
                 int counter = model.getMid()[model.getItr()] + 1;
                 public void run() {
                     btn.setEnabled(false);
@@ -272,7 +258,7 @@ public class View {
                     frame.repaint();
                     if (counter <= -2) {
                         delayTime(2);
-                        timer.cancel();
+                        executor.shutdown();
                         if (model.getArr()[model.getItr()] == model.getTarget()) {
                             btn.setEnabled(true);
                             JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
@@ -288,7 +274,7 @@ public class View {
                     }
                 }
             };
-            timer.scheduleAtFixedRate(task, 200, 200);
+            executor.scheduleAtFixedRate(task, 200, 200, TimeUnit.MILLISECONDS);
         }
     }
 
