@@ -1,6 +1,6 @@
 /**
  * MVC View architecture that handles what the user sees
- * 
+ *
  * @author WorkNicolas
  * @version 2023-04-26
  */
@@ -39,10 +39,10 @@ public class View {
     private JLabel tv = new JLabel(); // target value
     private JLabel mi = new JLabel(); // middle index
     private JLabel mc = new JLabel(); // middle calculation
-    
+
     /**
      * Generates the menu
-     * 
+     *
      * @param model
      */
     public View(Model model) {
@@ -121,7 +121,7 @@ public class View {
                  * Set target value based on array element
                  * whose index is randomly chosen based on
                  * the length of the array
-                 * 
+                 *
                  */
                 model.setTarget(
                     model.getArr()
@@ -138,11 +138,11 @@ public class View {
             } catch(NegativeArraySizeException ex) {
                 System.out.println(ex);
                 JOptionPane.showMessageDialog(null, ex, "Negative Array Size", JOptionPane.ERROR_MESSAGE);
-            } 
-           } 
+            }
+           }
         });
     }
-    
+
     /**
      * Updates JLabel lb and Animation class
      */
@@ -152,7 +152,16 @@ public class View {
         tv.setText("Target Value: NaN");
         mi.setText("Middle Index: NaN");
         mc.setText("Middle = (start + end)/2");
-        forwardIndex();
+        for (int i = 0; i < model.getRuns() + 1; i++) {
+            forwardIndex(model.getMid()[i]);
+        }
+
+    }
+    public void newText(int count) {
+        mv.setText("Middle Value: " + model.getArr()[count]);
+        tv.setText("Target Value: " + model.getTarget());
+        mi.setText("Middle Index: " + count);
+        mc.setText("Middle = " + "(" + model.getStart()[count] + " + " + model.getEnd()[count] + ")" + "/2");
     }
     public void calculateBs() {
         // Set up a model's binary search
@@ -161,30 +170,30 @@ public class View {
          * Find the target to get the array
          * of middle values, start values,
          * and end values
-         * 
+         *
          */
         model.getBs().findTarget(
             model.getTarget(),
             0,
-            model.getArr().length,
-            0
+            model.getArr().length
             );
 
         /**
          * Get start, end and middle values
          * from BinarySearch()
-         * 
+         *
          */
         model.setStart(model.getBs().getStart());
         model.setEnd(model.getBs().getEnd());
-        model.setMid(model.getBs().getMiddle());
+        model.setMiddle(model.getBs().getMiddle());
+        model.setRuns(model.getBs().getCount());
     }
 
     /**
      * Index boxes appears from left-to-right
      *
      */
-    public void forwardIndex() {
+    public void forwardIndex(int count) {
         if (model.getArr() != null) {
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
@@ -216,15 +225,11 @@ public class View {
                      * is not wasted.
                      *
                      */
-                    if (counter >= model.getArr().length + 1) {
+                    newText(count);
+                    if (counter >= count + 2) {
+                        delayTime(5);
                         timer.cancel();
-                        btn.setEnabled(true);
-                        try {
-                            TimeUnit.SECONDS.sleep(1);
-                        } catch (InterruptedException e) {
-                            System.out.println(e);
-                        }
-                        reverseIndex();
+                        reverseIndex(count);
                     }
                 }
             };
@@ -236,7 +241,7 @@ public class View {
      * Index disappears from right-to-left
      *
      */
-    public void reverseIndex() {
+    public void reverseIndex(int count) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             int counter = model.getArr().length;
@@ -251,16 +256,31 @@ public class View {
                 frame.revalidate();
                 frame.repaint();
                 if (counter <= -1) {
-                    timer.cancel();
+                    delayTime(5);
                     btn.setEnabled(true);
+                    timer.cancel();
                 }
             }
         };
         timer.scheduleAtFixedRate(task, 0, 200);
     }
+
+    /**
+     * Delay time according to the arumgne of
+     * TimeUnit.SECONDS.sleep
+     *
+     */
+    public void delayTime(int sec) {
+        try {
+            TimeUnit.SECONDS.sleep(sec);
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+    }
+
     /**
      * For Controller architecture
-     * 
+     *
      * @param model
      */
     public void setModel(Model model) {
@@ -268,7 +288,7 @@ public class View {
     }
     /**
      * For Controller architecture
-     * 
+     *
      * @return
      */
     public Model getModel() {

@@ -3,7 +3,9 @@ package mvc;
 public class Model {
     private int[] arr, start, end, mid;
     private int target;
-    private int counter = 0;
+    private int counter;
+    private int runs;
+    private int itr;
     private methods.BinarySearch bs;
     public Model() {
 
@@ -21,7 +23,7 @@ public class Model {
     public void setEnd(int[] end) {
         this.end = end;
     }
-    public void setMid(int[] mid) {
+    public void setMiddle(int[] mid) {
         this.mid = mid;
     }
     public void setTarget(int target) {
@@ -29,6 +31,12 @@ public class Model {
     }
     public void setBs(methods.BinarySearch bs) {
         this.bs = bs;
+    }
+    public void setRuns(int runs) {
+        this.runs = runs;
+    }
+    public void setItr(int itr) {
+        this.itr = itr;
     }
 
     public int getCounter() {
@@ -51,5 +59,11 @@ public class Model {
     }
     public methods.BinarySearch getBs() {
         return bs;
+    }
+    public int getRuns() {
+        return runs;
+    }
+    public int getItr() {
+        return itr;
     }
 }

@@ -2,6 +2,8 @@ package methods;
 
 import mvc.Model;
 
+import java.util.Arrays;
+
 public class BinarySearch
 {
     /**
@@ -11,7 +13,11 @@ public class BinarySearch
      * Array of end values used
      *
      */
-    private int[] arr, mid, nextStart, nextEnd;
+    private int[] arr;
+    private int[] startArr;
+    private int[] middleArr;
+    private int[] endArr;
+    private int count;
 
     /**
      * All lengths and the array itself is acquired
@@ -21,25 +27,10 @@ public class BinarySearch
      */
     public BinarySearch(int[] arr) {
         this.arr = arr;
-        this.nextStart = new int[arr.length];
-        this.nextEnd = new int[arr.length];
-        this.mid = new int[arr.length];
-    }
-    public void setArr(int[] arr) {
-        this.arr =arr;
-    }
-
-    public int[] getArr() {
-        return arr;
-    }
-    public int[] getMiddle() {
-        return mid;
-    }
-    public int[] getStart() {
-        return nextStart;
-    }
-    public int[] getEnd() {
-        return nextEnd;
+        this.startArr = new int[arr.length];
+        this.middleArr = new int[arr.length];
+        this.endArr = new int[arr.length];
+        this.count = 0;
     }
     
     /**
@@ -48,10 +39,9 @@ public class BinarySearch
      * @param target element to search for
      * @param start where the binary search will start
      * @param end where the binary search will stop
-     * @param model to return the model and inherit start, end, and middle
      * @param itr number of iterations occured
      */
-    public void findTarget(int target, int start, int end, int itr)
+    public void findTarget(int target, int start, int end)
     {
         if (start > end)
         {
@@ -59,21 +49,49 @@ public class BinarySearch
         }
         int middle = (int) (start + end) / 2;
         if (arr[middle] == target) {
+            startArr[count] = start;
+            middleArr[count] = middle;
+            endArr[count] = end;
+            count++;
+            System.out.println("BinarySearch.java");
+            System.out.println("Start: " + Arrays.toString(startArr));
+            System.out.println("End: " + Arrays.toString(endArr));
+            System.out.println("Middle: " + Arrays.toString(middleArr));
+            System.out.println("Runs: " + count);
             System.out.println(target + " found at index " + middle);
         }
 
         if (arr[middle] > target) {
-            nextStart[itr] = start;
-            nextEnd[itr] = middle - 1;
-            itr++;
-            findTarget(target, start, middle-1, itr);
+            startArr[count] = start;
+            middleArr[count] = middle;
+            endArr[count] = middle - 1;
+            count++;
+            findTarget(target, start, middle-1);
         }
 
         if (arr[middle] < target) {
-            nextStart[itr] = middle - 1;
-            nextEnd[itr] = end;
-            itr++;
-            findTarget(target, middle+1, end, itr);
+            startArr[count] = middle + 1;
+            middleArr[count] = middle;
+            endArr[count] = end;
+            count++;
+            findTarget(target, middle+1, end);
         }
+    }
+
+    // getter methods for start, middle, and end arrays and count
+    public int[] getStart() {
+        return startArr;
+    }
+
+    public int[] getMiddle() {
+        return middleArr;
+    }
+
+    public int[] getEnd() {
+        return endArr;
+    }
+
+    public int getCount() {
+        return count;
     }
 }
