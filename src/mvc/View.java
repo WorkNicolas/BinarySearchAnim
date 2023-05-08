@@ -152,7 +152,7 @@ public class View {
         int iterator = 0;
         model.setItr(iterator);
         System.out.println("Iterator: " + iterator);
-        model.setIndexAnim(true);
+        model.setIndexAnim(0);
         /**
          * NullPointerException
          *
@@ -175,7 +175,7 @@ public class View {
         mv.setText("Middle Value: " + model.getArr()[count]);
         tv.setText("Target Value: " + model.getTarget());
         mi.setText("Middle Index: " + count);
-        if (count == 0) {
+        if (model.getIndexAnim() == 0) {
             mc.setText("Middle = " + "(" + 0 + " + " + (model.getArr().length - 1) + ")" + "/2");
         } else if (count == model.getArr().length - 1) {
             mc.setText("Middle = " + "(" + (model.getArr().length - 1) + " + " + (model.getArr().length - 1) + ")" + "/2");
@@ -184,7 +184,6 @@ public class View {
         } else {
             mc.setText("Middle = " + "(" + model.getStart()[count] + " + " + model.getEnd()[count] + ")" + "/2");
         }
-
     }
     public void calculateBs() {
         // Set up a model's binary search
@@ -217,7 +216,7 @@ public class View {
      *
      */
     public void forwardIndex(int count) {
-        if (model.getArr() != null && model.getIndexAnim()) {
+        if (model.getArr() != null) {
             ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
             Runnable task = new Runnable() {
                 int counter = 0;
@@ -230,16 +229,18 @@ public class View {
                     // iterate up for elements and index
                     model.setCounter(counter);
                     ++counter;
-                    model.setItr(count);
-                    lpanel.setModel(model);
-                    frame.revalidate();
-                    frame.repaint();
-                    newText(count);
+                    System.out.println("IndexAnim: " + model.getIndexAnim());
+                    if (count != 0 || model.getArr()[count] <= model.getTarget()) {
+                        model.setItr(count);
+                        lpanel.setModel(model);
+                        frame.revalidate();
+                        frame.repaint();
+                        newText(count);
+                    }
                     if (counter >= count + 1) {
                         delayTime(2);
                         executor.shutdown();
                         System.out.println("Iterator: " + model.getItr());
-                        model.setIndexAnim(false);
                         reverseIndex(model.getMid()[model.getItr()]);
                     }
                 }
@@ -253,43 +254,50 @@ public class View {
      *
      */
     public void reverseIndex(int count) {
-        if (!model.getIndexAnim()) {
-            ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-            System.out.println("Current Counter Index: " + model.getMid()[model.getItr()]);
-            Runnable task = new Runnable() {
-                int counter = model.getMid()[model.getItr()] + 1;
-                public void run() {
-                    btn.setEnabled(false);
-                    if (model.getArr() == null) {
-                        btn.setEnabled(true);
-                    }
-                    model.setCounter(counter);
-                    --counter;
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        System.out.println("Current Counter Index: " + model.getMid()[model.getItr()]);
+        if (count == 0) {
+            int counter = 0;
+        } else {
+            int counter = model.getMid()[model.getItr()];
+        }
+        Runnable task = new Runnable() {
+            int counter;
+            public void run() {
+                // button availability
+                btn.setEnabled(false);
+                if (model.getArr() == null) {
+                    btn.setEnabled(true);
+                }
+                // index animation
+                model.setCounter(counter);
+                --counter;
+                if ((count != 0 || model.getArr()[count] <= model.getTarget()) && model.getArr()[0] != model.getTarget()) {
                     lpanel.setModel(model);
                     frame.revalidate();
                     frame.repaint();
-                    if (counter <= -2) {
-                        delayTime(2);
-                        System.out.println("Run: " + count);
-                        executor.shutdown();
-                        if (model.getArr()[model.getItr()] == model.getTarget()) {
-                            btn.setEnabled(true);
-                            JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
-                        } else {
-                            model.setIndexAnim(true);
-                            try {
-                                System.out.println("model.getMid()[model.getItr() + 1] " + model.getMid()[model.getItr() + 1] );
-                                forwardIndex(model.getMid()[model.getItr() + 1]);
-                            } catch (ArrayIndexOutOfBoundsException ex) {
-                                mc.setText("Middle = " + "(" + model.getArr().length + " - " + (model.getArr().length - 2) + ")/2");
-                                forwardIndex(model.getArr().length - 2);
-                            }
+                }
+                if (counter <= -2) {
+                    delayTime(2);
+                    System.out.println("Run: " + count);
+                    model.setIndexAnim(model.getIndexAnim() + 1);
+                    executor.shutdown();
+                    if (model.getArr()[model.getItr()] == model.getTarget()) {
+                        btn.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
+                    } else {
+                        try {
+                            System.out.println("model.getMid()[model.getItr() + 1] " + model.getMid()[model.getItr() + 1] );
+                            forwardIndex(model.getMid()[model.getItr() + 1]);
+                        } catch (ArrayIndexOutOfBoundsException ex) {
+                            mc.setText("Middle = " + "(" + model.getArr().length + " - " + (model.getArr().length - 2) + ")/2");
+                            forwardIndex(model.getArr().length - 2);
                         }
                     }
                 }
-            };
-            executor.scheduleAtFixedRate(task, 200, 200, TimeUnit.MILLISECONDS);
-        }
+            }
+        };
+        executor.scheduleAtFixedRate(task, 200, 200, TimeUnit.MILLISECONDS);
     }
 
     /**
