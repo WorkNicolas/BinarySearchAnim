@@ -230,7 +230,7 @@ public class View {
                     model.setCounter(counter);
                     ++counter;
                     System.out.println("IndexAnim: " + model.getIndexAnim());
-                    if (count != 0 || model.getArr()[count] <= model.getTarget()) {
+                    if (count != 0 || model.getArr()[0] == model.getTarget() || (model.getStart()[count] + model.getEnd()[count])/2 == 1) {
                         model.setItr(count);
                         lpanel.setModel(model);
                         frame.revalidate();
@@ -272,7 +272,7 @@ public class View {
                 // index animation
                 model.setCounter(counter);
                 --counter;
-                if ((count != 0 || model.getArr()[count] <= model.getTarget()) && model.getArr()[0] != model.getTarget()) {
+                if (count != 0 || model.getArr()[0] == model.getTarget() || (model.getStart()[count] + model.getEnd()[count])/2 == 1) {
                     lpanel.setModel(model);
                     frame.revalidate();
                     frame.repaint();
