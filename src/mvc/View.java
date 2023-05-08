@@ -234,7 +234,7 @@ public class View {
                      */
                     newText(count);
                     if (counter >= count + 2) {
-                        delayTime(5);
+                        delayTime(2);
                         timer.cancel();
                         reverseIndex(model.getMid()[model.getItr()]);
                     }
@@ -251,7 +251,7 @@ public class View {
     public void reverseIndex(int count) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
-            int counter = model.getMid()[model.getItr()];
+            int counter = model.getArr().length;
             public void run() {
                 btn.setEnabled(false);
                 if (model.getArr() == null) {
@@ -263,9 +263,9 @@ public class View {
                 frame.revalidate();
                 frame.repaint();
                 if (counter <= -1) {
-                    delayTime(5);
+                    delayTime(2);
                     timer.cancel();
-                    if (model.getMid()[model.getItr()] == model.getTarget()) {
+                    if (model.getArr()[model.getItr()] == model.getTarget()) {
                         btn.setEnabled(true);
                         JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
                     } else {
