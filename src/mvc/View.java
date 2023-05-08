@@ -230,13 +230,12 @@ public class View {
                     model.setCounter(counter);
                     ++counter;
                     System.out.println("IndexAnim: " + model.getIndexAnim());
-                    if (count != 0 || model.getArr()[0] == model.getTarget() || (model.getStart()[count] + model.getEnd()[count])/2 == 1) {
-                        model.setItr(count);
-                        lpanel.setModel(model);
-                        frame.revalidate();
-                        frame.repaint();
-                        newText(count);
-                    }
+                    model.setItr(count);
+                    lpanel.setModel(model);
+                    frame.revalidate();
+                    frame.repaint();
+                    newText(count);
+
                     if (counter >= count + 1) {
                         delayTime(2);
                         executor.shutdown();
@@ -272,11 +271,10 @@ public class View {
                 // index animation
                 model.setCounter(counter);
                 --counter;
-                if (count != 0 || model.getArr()[0] == model.getTarget() || (model.getStart()[count] + model.getEnd()[count])/2 == 1) {
-                    lpanel.setModel(model);
-                    frame.revalidate();
-                    frame.repaint();
-                }
+                lpanel.setModel(model);
+                frame.revalidate();
+                frame.repaint();
+
                 if (counter <= -2) {
                     delayTime(2);
                     System.out.println("Run: " + count);
