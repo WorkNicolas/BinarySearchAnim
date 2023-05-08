@@ -27,7 +27,7 @@ public class Animation extends javax.swing.JPanel {
                 paintElements(g, i, model.getArr()[i]);
                 
             }
-            for (int i = 0; i < model.getCounter(); i++) {
+            for (int i = 0; i <= model.getCounter() + 1; i++) {
                 paintIndex(g, i);
             }
         }
@@ -57,7 +57,7 @@ public class Animation extends javax.swing.JPanel {
         
 
         // Outer Rectangle
-        if (model.getArr()[index] == model.getArr()[model.getItr()]) {
+        if (model.getArr()[index] == model.getArr()[model.getCurrentIndex()]) {
             g.setColor(Color.RED);
         } else {
             g.setColor(Color.GREEN);

@@ -8,9 +8,9 @@ public class Model {
     private int counter;
     // number of BinarySearch.java runs before finding target
     private int runs;
-    // iterate through int[] mid
-    private int itr;
+    private boolean indexAnimation;
     private methods.BinarySearch bs;
+    private int currentIndex;
     public Model() {
 
     }
@@ -39,8 +39,11 @@ public class Model {
     public void setRuns(int runs) {
         this.runs = runs;
     }
-    public void setItr(int itr) {
-        this.itr = itr;
+    public void setIndexAnimation(boolean indexAnimation) {
+        this.indexAnimation = indexAnimation;
+    }
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
     }
 
     public int getCounter() {
@@ -67,7 +70,10 @@ public class Model {
     public int getRuns() {
         return runs;
     }
-    public int getItr() {
-        return itr;
+    public boolean getIndexAnimation() {
+        return indexAnimation;
+    }
+    public int getCurrentIndex() {
+        return currentIndex;
     }
 }

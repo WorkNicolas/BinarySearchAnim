@@ -150,12 +150,23 @@ public class View {
         tv.setText("Target Value: NaN");
         mi.setText("Middle Index: NaN");
         mc.setText("Middle = (start + end)/2");
-        int iterator = 0;
-        model.setItr(iterator);
-        System.out.println("Iterator: " + iterator);
-        forwardIndex(model.getMid()[iterator]);
+        // Index Animation
+        model.setIndexAnimation(true);
+        model.setCurrentIndex(3);
+        forwardIndex(3);
+        System.out.println("Moving Instruction");
+        reverseIndex(3);
+        for (int i = 0; i <= model.getRuns(); i++) {
+            break;
+
+        }
+
+        /**
+         * View.java relevant information for testing
+         *
+         */
         System.out.println("View.java");
-        System.out.println("Iterator: " + iterator);
+        //System.out.println("Iterator: " + iterator);
         System.out.println("Start: " + Arrays.toString(model.getStart()));
         System.out.println("End: " + Arrays.toString(model.getEnd()));
         System.out.println("Middle: " + Arrays.toString(model.getMid()));
@@ -198,47 +209,55 @@ public class View {
      *
      */
     public void forwardIndex(int count) {
-        if (model.getArr() != null) {
+        /**
+         * Gives NullPointerException in the terminal
+         * This is why the condition is set to only run
+         * when model.getArr() != null.
+         *
+         * When ignored with try/catch, an array of boxes
+         * will appear and disappear. The catch block will
+         * loop infinitely, but this will not affect the
+         * menu.
+         *
+         * For some reason forwardIndex() runs w/o any
+         * prompt, the error can be ignored but, I don't
+         * like seeing errors so, I managed the problem
+         * here. Resolved to ensure that processing power
+         * is not wasted.
+         *
+         */
+        System.out.println("Beginning Forward Index");
+        if (model.getArr() != null && model.getIndexAnimation()) {
             Timer timer = new Timer();
             TimerTask task = new TimerTask() {
                 int counter = 0;
+                @Override
                 public void run() {
-                    btn.setEnabled(false);
-                    if (model.getArr() == null) {
-                        btn.setEnabled(true);
-                    }
-                    model.setCounter(counter);
-                    ++counter;
-                    model.setItr(count);
-                    lpanel.setModel(model);
-                    frame.revalidate();
-                    frame.repaint();
-                    /**
-                     * Gives NullPointerException in the terminal
-                     * This is why the condition is set to only run
-                     * when model.getArr() != null.
-                     *
-                     * When ignored with try/catch, an array of boxes
-                     * will appear and disappear. The catch block will
-                     * loop infinitely, but this will not affect the
-                     * menu.
-                     *
-                     * For some reason forwardIndex() runs w/o any
-                     * prompt, the error can be ignored but, I don't
-                     * like seeing errors so, I managed the problem
-                     * here. Resolved to ensure that processing power
-                     * is not wasted.
-                     *
-                     */
-                    newText(count);
-                    if (counter >= count + 2) {
+                    if (counter >= count) {
+                        System.out.println("Ending Forward Index");
                         delayTime(2);
+                        model.setIndexAnimation(false);
                         timer.cancel();
-                        reverseIndex(model.getMid()[model.getItr()]);
+                    } else {
+                        //gbtn.setEnabled(false);
+                        if (model.getArr() == null) {
+                            btn.setEnabled(true);
+                        }
+                        model.setCounter(counter);
+                        ++counter;
+                        lpanel.setModel(model);
+                        frame.revalidate();
+                        frame.repaint();
+                        newText(count);
+                        System.out.println("Counter: " + counter);
+                        System.out.println("Count: " + count);
                     }
                 }
             };
-            timer.scheduleAtFixedRate(task, 0, 200);
+            timer.scheduleAtFixedRate(task, 1000, 400);
+            if (!model.getIndexAnimation()) {
+                task.cancel();
+            }
         }
     }
 
@@ -247,33 +266,35 @@ public class View {
      *
      */
     public void reverseIndex(int count) {
-        Timer timer = new Timer();
-        System.out.println("Current Counter Index: " + model.getMid()[model.getItr()]);
-        TimerTask task = new TimerTask() {
-            int counter = model.getMid()[model.getItr()];
-            public void run() {
-                btn.setEnabled(false);
-                if (model.getArr() == null) {
-                    btn.setEnabled(true);
-                }
-                model.setCounter(counter);
-                --counter;
-                lpanel.setModel(model);
-                frame.revalidate();
-                frame.repaint();
-                if (counter <= -1) {
-                    delayTime(2);
-                    timer.cancel();
-                    if (model.getArr()[model.getItr()] == model.getTarget()) {
+        System.out.println("Beginning Reverse Index");
+        if (!model.getIndexAnimation()) {
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                int counter = count;
+                public void run() {
+                    btn.setEnabled(false);
+                    if (model.getArr() == null) {
                         btn.setEnabled(true);
-                        JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
-                    } else {
-                        forwardIndex(model.getMid()[model.getItr() + 1]);
+                    }
+                    model.setCounter(counter);
+                    --counter;
+                    lpanel.setModel(model);
+                    frame.revalidate();
+                    frame.repaint();
+                    if (counter <= 0) {
+                        delayTime(2);
+                        System.out.println("Ending Reverse Index");
+                        model.setIndexAnimation(true);
+                        if (model.getArr()[count] == model.getTarget()) {
+                            btn.setEnabled(true);
+                            JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
+                        }
+                        timer.cancel();
                     }
                 }
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 200);
+            };
+            timer.scheduleAtFixedRate(task, 0, 200);
+        }
     }
 
     /**
