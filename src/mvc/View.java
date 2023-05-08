@@ -23,8 +23,6 @@ import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class View {
     private Model model = new Model();
@@ -250,8 +248,9 @@ public class View {
      */
     public void reverseIndex(int count) {
         Timer timer = new Timer();
+        System.out.println("Current Counter Index: " + model.getMid()[model.getItr()]);
         TimerTask task = new TimerTask() {
-            int counter = model.getArr().length;
+            int counter = model.getMid()[model.getItr()];
             public void run() {
                 btn.setEnabled(false);
                 if (model.getArr() == null) {
@@ -269,7 +268,7 @@ public class View {
                         btn.setEnabled(true);
                         JOptionPane.showMessageDialog(null, model.getTarget() + " has been found!", "Target", JOptionPane.PLAIN_MESSAGE);
                     } else {
-                        forwardIndex(model.getMid()[model.getItr()]);
+                        forwardIndex(model.getMid()[model.getItr() + 1]);
                     }
                 }
             }
